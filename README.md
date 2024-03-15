@@ -12,7 +12,7 @@ To access the features of D'Xpresso, please use the following login credentials:
 
 ### For Admin Access:
 - Username: `vollydaskom`
-- Password: `000`
+- Password: `2424`
 
 ## Get Started ▶️
 ### Clone the Repository
