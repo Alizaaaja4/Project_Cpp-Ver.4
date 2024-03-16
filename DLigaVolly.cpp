@@ -19,6 +19,7 @@ Fitur program (file.txt)
 #include <iostream>
 #include <unistd.h>
 #include <cstring>
+#include <fstream>
 using namespace std;
 
 void baper();
@@ -30,6 +31,7 @@ void view_team();
 void delate_team();
 void upd_team();
 void add_jadwal_team();
+void view_jadwal_team();
 void delate_jadwal_team();
 
 void dash1_public();
@@ -40,9 +42,18 @@ void view_rank_public();
 void search_public();
 
 struct items{
+    // for login admin
     char uname[30], pass[30];
+
+    // for team
+    char nama[20], pelatih[20], pemain[20], rangking[20], jadwal[20], informasi[40], lokasi[20];
+
     string cari;
 }; items its;
+
+void add_team(){
+
+}
 
 void dash_admin(){
     string menu;
@@ -64,11 +75,35 @@ void dash_admin(){
     cout << "---------                Input Option                ----------" << endl;
     cout << "                            /> "; cin >> menu;
     cout << "---------------------------------------------------------------" << endl;
+
+    if (menu == "A" || menu == "a"){
+        cout << "\033[2J\033[1;1H"; add_team();
+    } else if (menu == "B" || menu == "b"){
+        // kondisi 2
+    } else if (menu == "C" || menu == "c"){
+        // kondisi 3
+    } else if (menu == "D" || menu == "d"){
+        // kondisi 4
+    } else if (menu == "E" || menu == "e"){
+        // kondisi 5
+    } else if (menu == "F" || menu == "f"){
+        // kondisi 6
+    } else if (menu == "G" || menu == "g"){
+        // kondisi 7
+    } else if (menu == "H" || menu == "h"){
+        // kondisi 8
+    } else if (menu == "Z" || menu == "z"){
+        // kondisi 9
+    } else {
+        cout << "\033[2J\033[1;1H";
+        cout << endl << "Maaf option ada tidak terdekteksi!!" << endl; sleep(3);
+        dash_admin();
+    }
 }
 
 void log_admin(){
     cout << "-------------------------- D'LIGAVOLLY ------------------------" << endl;
-    cout << " -------------------- LOGIN ADMINISTRATOR ---------------------" << endl;
+    cout << " --------------------- LOGIN ADMINISTRATOR ---------------------" << endl;
     cout << "---------------------------------------------------------------" << endl;
     cout << "\t\t     Username: "; cin >> its.uname;
     cout << "\t\t     Password: "; cin >> its.pass;
