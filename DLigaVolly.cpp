@@ -18,9 +18,8 @@ Fitur program (file.txt)
 
 #include <iostream>
 #include <unistd.h>
-#include <cstring>
+#include <string>
 #include <fstream>
-#include <math.h>
 
 using namespace std;
 
@@ -47,13 +46,35 @@ struct items{
     char uname[30], pass[30];
 
     // for team
-    char nama[20], pelatih[20], pemain[20], rangking[20], jadwal[20], informasi[40], lokasi[20];
+    string nama, pelatih, pemain, rangking, jadwal, informasi, lokasi;
 
     string cari;
 }; items its;
 
 void add_team(){
+    fstream data_team;
+    data_team.open("data_team.bin", ios::out | ios:: in | ios::binary);
 
+    // if(data_team.is_open()){
+    //     cout << "Database ditemukan" << endl;
+    // } else{
+    //     cout << "Database tidak ditemukan" << endl;
+    //     data_team.close();
+    // }
+
+    cout << "-------------------------- D'LIGAVOLLY ------------------------" << endl;
+    cout << "--------------------- MENU INPUT DATA TEAM --------------------" << endl;
+    cout << "---------------------------------------------------------------" << endl;
+    cout << "Tim Volly    : "; getline(cin, its.nama);
+    cout << "Rangking VPGA: "; getline(cin, its.rangking);
+    cout << "Nama Pelatih : "; getline(cin, its.pelatih);
+    cout << "Jumlah Pemain: "; getline(cin, its.pemain);
+    cout << "Informasi Tim: "; getline(cin, its.informasi);
+
+    cout << "---------------------------------------------------------------" << endl;
+
+    
+    
 }
 
 void dash_admin(){
