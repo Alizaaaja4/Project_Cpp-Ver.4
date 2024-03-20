@@ -20,10 +20,10 @@ Fitur program (file.txt)
 #include <unistd.h>
 #include <cstring>
 #include <fstream>
+
 using namespace std;
 
 void baper();
-
 void log_admin();
 void dash_admin();
 void add_team();
