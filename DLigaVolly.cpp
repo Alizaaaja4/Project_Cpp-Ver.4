@@ -42,6 +42,9 @@ void view_rank_public();
 void search_public();
 
 struct items{
+    // untuk nomor data entry
+    int pk;
+
     // for login admin
     char uname[30], pass[30];
 
@@ -51,31 +54,44 @@ struct items{
     string cari;
 }; items its;
 
-void add_team(){
-    fstream data_team;
-    data_team.open("data_team.bin", ios::out | ios:: in | ios::binary);
+void add_team() {
+    string pilih;
+    ofstream data_team("data_team.txt", ios::app); // Membuka file untuk penulisan data (mode append)
 
-    // if(data_team.is_open()){
-    //     cout << "Database ditemukan" << endl;
-    // } else{
-    //     cout << "Database tidak ditemukan" << endl;
-    //     data_team.close();
-    // }
+    if (data_team.is_open()) {
+        cout << "-------------------------- D'LIGAVOLLY ------------------------" << endl;
+        cout << "--------------------- MENU INPUT DATA TEAM --------------------" << endl;
+        cout << "---------------------------------------------------------------" << endl;
+        cout << "Tim Volly    : "; getline(cin, its.nama);
+        cout << "Rangking VPGA: "; getline(cin, its.rangking);
+        cout << "Nama Pelatih : "; getline(cin, its.pelatih);
+        cout << "Jumlah Pemain: "; getline(cin, its.pemain);
+        cout << "Informasi Tim: "; getline(cin, its.informasi);
+        cout << "---------------------------------------------------------------" << endl;
 
-    cout << "-------------------------- D'LIGAVOLLY ------------------------" << endl;
-    cout << "--------------------- MENU INPUT DATA TEAM --------------------" << endl;
-    cout << "---------------------------------------------------------------" << endl;
-    cout << "Tim Volly    : "; getline(cin, its.nama);
-    cout << "Rangking VPGA: "; getline(cin, its.rangking);
-    cout << "Nama Pelatih : "; getline(cin, its.pelatih);
-    cout << "Jumlah Pemain: "; getline(cin, its.pemain);
-    cout << "Informasi Tim: "; getline(cin, its.informasi);
+        // Menulis data ke dalam file
+        data_team << its.nama << "," << its.rangking << "," << its.pelatih << "," << its.pemain << "," << its.informasi << endl;
 
-    cout << "---------------------------------------------------------------" << endl;
+        // Menutup file setelah selesai penulisan
+        data_team.close();
+        cout << "Data sedang dimasukan"<< endl; sleep(5);
+        cout << "Data tim berhasil ditambahkan." << endl << endl;
+        cout << "Apakah anda ingin memasukan data lagi (y/n): "; cin >> pilih;
 
-    
-    
+        if(pilih == "Y" || pilih == "y"){
+            cout << "\033[2J\033[1;1H"; cin.ignore(); add_team();
+        } else if(pilih == "N" || pilih == "n"){
+            dash_admin();
+        } else{
+            cout << "\033[2J\033[1;1H";
+            cout << endl << "Maaf option ada tidak terdekteksi!!" << endl; sleep(3);
+            dash_admin();
+        }
+    } else {
+        cout << "Gagal membuka file untuk menulis data." << endl; sleep(4); dash_admin();
+    }
 }
+
 
 void dash_admin(){
     string menu;
@@ -99,7 +115,7 @@ void dash_admin(){
     cout << "---------------------------------------------------------------" << endl;
 
     if (menu == "A" || menu == "a"){
-        cout << "\033[2J\033[1;1H"; add_team();
+        cout << "\033[2J\033[1;1H"; cin.ignore();add_team();
     } else if (menu == "B" || menu == "b"){
         // kondisi 2
     } else if (menu == "C" || menu == "c"){
