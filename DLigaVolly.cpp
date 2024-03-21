@@ -49,7 +49,10 @@ struct items{
     char uname[30], pass[30];
 
     // for team
-    string nama, pelatih, pemain, rangking, jadwal, informasi, lokasi;
+    string nama, pelatih, pemain, rangking, informasi;
+
+    // for jadwal
+    string lokasi, jadwal, waktu, nama_club, hasil;
 
     string cari;
 }; items its;
@@ -70,13 +73,13 @@ void add_team() {
         cout << "---------------------------------------------------------------" << endl;
 
         // Menulis data ke dalam file
-        data_team << its.nama << "," << its.rangking << "," << its.pelatih << "," << its.pemain << "," << its.informasi << endl;
+        data_team << its.nama << " | " << its.rangking << " | " << its.pelatih << " | " << its.pemain << " | " << its.informasi << endl;
 
         // Menutup file setelah selesai penulisan
         data_team.close();
-        cout << "Data sedang dimasukan"<< endl; sleep(5);
-        cout << "Data tim berhasil ditambahkan." << endl << endl;
-        cout << "Apakah anda ingin memasukan data lagi (y/n): "; cin >> pilih;
+        cout << "\t\t\tData sedang dimasukan"<< endl; sleep(5);
+        cout << "\t\t    Data tim berhasil ditambahkan." << endl << endl;
+        cout << "\t  Apakah anda ingin memasukan data lagi (y/n): "; cin >> pilih;
 
         if(pilih == "Y" || pilih == "y"){
             cout << "\033[2J\033[1;1H"; cin.ignore(); add_team();
@@ -92,6 +95,41 @@ void add_team() {
     }
 }
 
+void add_jadwal_team(){
+    string pilih;
+    ofstream data_jadwal("data_jadwal.txt", ios:: app);
+
+    if(data_jadwal.is_open()){
+        cout << "-------------------------- D'LIGAVOLLY ------------------------" << endl;
+        cout << "----------------  MENU INPUT JADWAL PERTANDINGAN --------------" << endl;
+        cout << "---------------------------------------------------------------" << endl;
+        cout << "Nama Club          : "; getline(cin, its.nama_club);
+        cout << "Lokasi Pertandingan: "; getline(cin, its.lokasi);
+        cout << "Jadwal Pertandingan: "; getline(cin, its.jadwal);
+        cout << "Waktu Dimulai      : "; getline(cin, its.waktu);
+        cout << "Hasil Pertandingan : "; getline(cin, its.hasil);
+        cout << "---------------------------------------------------------------" << endl;
+
+        data_jadwal << its.nama_club << " | " << its.lokasi << " | " << its.jadwal << " | " << its.waktu << " | " << its.hasil << endl;
+
+        data_jadwal.close();
+        cout << "\t\t\tData sedang dimasukan"<< endl; sleep(5);
+        cout << "\t\t    Jadwal berhasil ditambahkan." << endl << endl;
+        cout << "\t  Apakah anda ingin memasukan data lagi (y/n): "; cin >> pilih;
+
+        if(pilih == "Y" || pilih == "y"){
+            cout << "\033[2J\033[1;1H"; cin.ignore(); add_jadwal_team();
+        } else if(pilih == "N" || pilih == "n"){
+            dash_admin();
+        } else{
+            cout << "\033[2J\033[1;1H";
+            cout << endl << "Maaf option ada tidak terdekteksi!!" << endl; sleep(3);
+            dash_admin();
+        }
+    } else {
+        cout << "Gagal membuka file untuk menulis data." << endl; sleep(4); dash_admin();
+    }
+}
 
 void dash_admin(){
     string menu;
