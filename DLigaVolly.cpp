@@ -20,7 +20,7 @@ Fitur program (file.txt)
 #include <unistd.h>
 #include <string>
 #include <fstream>
-
+// cobain deh 
 using namespace std;
 
 void baper();
