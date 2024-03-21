@@ -8,7 +8,7 @@ D'LigaVolly is an application program that aims to manage information about voll
 
 ## Authentication 🔐
 
-To access the features of D'Xpresso, please use the following login credentials:
+To access the features of D'LigaVolly, please use the following login credentials:
 
 ### For Admin Access:
 - Username: `vollydaskom`
