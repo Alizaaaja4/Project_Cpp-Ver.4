@@ -20,7 +20,6 @@ Fitur program (file.txt)
 #include <unistd.h>
 #include <string>
 #include <fstream>
-#include <math.h>
 
 using namespace std;
 
