@@ -1,14 +1,4 @@
 /*
-Fitur program (file.txt)
--> Admin
-- login username dan pass
-- add daftar tim
-- melihat daftar tim
-- update informasi tim
-- add jadwal pertandingan
-- delate jadwal pertandingan
-- delate tim
-
 -> Public
 - searching tim (untuk informasi)
 - lihat jadwal pertandingan tim
@@ -77,8 +67,8 @@ void add_team() {
 
         // Menutup file setelah selesai penulisan
         data_team.close();
-        cout << "\t\t\tData sedang dimasukan"<< endl; sleep(5);
-        cout << "\t\t    Data tim berhasil ditambahkan." << endl << endl;
+        cout << "\033[1;33m" << "\t\t\tData sedang dimasukan"<< endl << "\033[0m\n"; sleep(5);
+        cout << "\033[1;32m" << "\t\t    Data tim berhasil ditambahkan." << endl << "\033[0m\n";
         cout << "\t  Apakah anda ingin memasukan data lagi (y/n): "; cin >> pilih;
 
         if(pilih == "Y" || pilih == "y"){
@@ -87,11 +77,11 @@ void add_team() {
             dash_admin();
         } else{
             cout << "\033[2J\033[1;1H";
-            cout << endl << "Maaf option ada tidak terdekteksi!!" << endl; sleep(3);
+            cout  << "\033[1;31m"<< endl << "Maaf option ada tidak terdekteksi!!" << endl  << "\033[0m\n"; sleep(3);
             dash_admin();
         }
     } else {
-        cout << "Gagal membuka file untuk menulis data." << endl; sleep(4); dash_admin();
+        cout  << "\033[1;31m"<< "Gagal membuka file untuk menulis data." << endl  << "\033[0m\n"; sleep(4); dash_admin();
     }
 }
 
@@ -119,11 +109,11 @@ void view_team() {
         } else if (menu == "N" || menu == "n"){
             cout << "\033[2J\033[1;1H"; cin.ignore();view_team();
         } else {
-            cout << "\t\t   Pilihan anda tidak ada!!"; sleep(4); cout << "\033[2J\033[1;1H"; cin.ignore();view_team();
+            cout  << "\033[1;31m" << "\t\t   Pilihan anda tidak ada!!" << "\033[0m\n"; sleep(4); cout << "\033[2J\033[1;1H"; cin.ignore();view_team();
         }
     } else {
-        cout << "Gagal membuka file untuk membaca data." << endl << endl;
-        cout << "Kembali ke menu utama dalam 5 detik" << endl; sleep(5); dash_admin();
+        cout << "\033[1;31m" << "Gagal membuka file untuk membaca data." << endl << endl << "\033[0m\n";
+        cout  << "\033[1;33m" << "Kembali ke menu utama dalam 5 detik" << endl << "\033[0m\n"; sleep(5); dash_admin();
     }
 }
 
@@ -159,7 +149,7 @@ void upd_team(){
                 getline(data_team, line);
                 baris_tim++;
             }
-            cout << "Loading...." << endl << endl;sleep(3); 
+            cout  << "\033[1;33m" << "Loading...." << endl << endl  << "\033[0m\n";sleep(3); 
             cin.ignore();
             cout << endl << "Masukkan data baru untuk tim ini:" << endl << endl;
             cout << "Tim Volly    : "; getline(cin, its.nama);
@@ -176,23 +166,23 @@ void upd_team(){
 
             data_team.close();
 
-            cout << endl << "\t\t\tData sedang dimasukan"<< endl; sleep(5);
-            cout << "\t\t    Data tim berhasil ditambahkan." << endl << endl; sleep(3);
+            cout << "\033[1;33m" << endl << "\t\t\tData sedang dimasukan"<< endl  << "\033[0m\n"; sleep(5);
+            cout << "\033[1;32m" << "\t\t    Data tim berhasil ditambahkan." << endl << endl  << "\033[0m\n"; sleep(3);
             cout << "\t\t    Kembali ke menu utama (y/n) ? "; cin >> menu;
             if (menu == "Y" || menu == "y"){
                 cout << "\033[2J\033[1;1H"; cin.ignore(); dash_admin();
             } else if (menu == "N" || menu == "n"){
                 cout << "\033[2J\033[1;1H"; cin.ignore(); upd_team();
             } else{
-                cout << "\t\t   Pilihan anda tidak ada!!"; sleep(4); cout << "\033[2J\033[1;1H"; cin.ignore();upd_team();
+                cout << "\033[1;31m" << "\t\t   Pilihan anda tidak ada!!"  << "\033[0m\n"; sleep(4); cout << "\033[2J\033[1;1H"; cin.ignore();upd_team();
             }
         } else {
-            cout << "Gagal membuka file untuk membaca data." << endl << endl;
-            cout << "Kembali ke menu utama dalam 5 detik" << endl; sleep(5); dash_admin();
+            cout << "\033[1;31m" << "Gagal membuka file untuk membaca data." << endl << endl  << "\033[0m\n";
+        cout << "\033[1;31m" << "Kembali ke menu utama dalam 5 detik" << endl  << "\033[0m\n"; sleep(5); dash_admin();
         }
     } else {
-        cout << "Gagal membuka file untuk membaca data." << endl << endl;
-        cout << "Kembali ke menu utama dalam 5 detik" << endl; sleep(5); dash_admin();
+        cout << "\033[1;31m" << "Gagal membuka file untuk membaca data." << endl << endl  << "\033[0m\n";
+        cout << "\033[1;31m" << "Kembali ke menu utama dalam 5 detik" << endl  << "\033[0m\n"; sleep(5); dash_admin();
     }
 }
 
@@ -201,8 +191,7 @@ void delate_team(){
     ifstream data_team("data_team.txt");
     
     if (data_team.is_open()) {
-        string line;
-        int nomor = 1;
+        string line; int nomor = 1;
 
         cout << "-------------------------- DAFTAR TIM --------------------------" << endl;
         cout << " No | Nama Team | Nama Pelatih | Jumlah Pemain | Informasi Team |" << endl;
@@ -212,12 +201,10 @@ void delate_team(){
             cout << nomor << ". " << line << endl;
             nomor++;
         }
-
         data_team.close();
 
         int nomor_tim;
-        cout << endl << "Pilih nomor tim yang ingin Anda hapus: ";
-        cin >> nomor_tim;
+        cout << endl << "Pilih nomor tim yang ingin Anda hapus: "; cin >> nomor_tim;
 
         ifstream in("data_team.txt");
         ofstream temp_file("temp_team.txt");
@@ -228,33 +215,30 @@ void delate_team(){
             while (getline(in, line)) {
                 if (baris_tim != nomor_tim) {
                     temp_file << line << endl;
-                }
-                baris_tim++;
+                } baris_tim++;
             }
-
             temp_file.close();
             in.close();
 
-            remove("data_team.txt");
-            rename("temp_team.txt", "data_team.txt");
+            remove("data_team.txt"); rename("temp_team.txt", "data_team.txt");
             
             sleep(3);
-            cout << endl << "\t\t    Data tim berhasil dihapus." << endl;
+            cout << "\033[1;32m" << endl << "\t\t    Data tim berhasil dihapus." << endl << "\033[0m\n";
             cout << "\t\t   Kembali ke menu utama (y/n) ? "; cin >> menu;
             if (menu == "Y" || menu == "y"){
                 cout << "\033[2J\033[1;1H"; cin.ignore(); dash_admin();
             } else if (menu == "N" || menu == "n"){
                 cout << "\033[2J\033[1;1H"; cin.ignore(); view_team();
             } else{
-                cout << "\t\t   Pilihan anda tidak ada!!"; sleep(4); cout << "\033[2J\033[1;1H"; cin.ignore();dash_admin();
+                cout  << "\033[1;31m" << "\t\t   Pilihan anda tidak ada!!" << "\033[0m\n"; sleep(4); cout << "\033[2J\033[1;1H"; cin.ignore();dash_admin();
             }
         } else {
-            cout << "Gagal membuka file untuk membaca data." << endl << endl;
-            cout << "Kembali ke menu utama dalam 5 detik" << endl; sleep(5); dash_admin();
+            cout << "\033[1;31m" << "Gagal membuka file untuk membaca data." << endl << endl  << "\033[0m\n";
+            cout << "\033[1;31m" << "Kembali ke menu utama dalam 5 detik" << endl  << "\033[0m\n"; sleep(5); dash_admin();
         }
     } else {
-        cout << "Gagal membuka file untuk membaca data." << endl << endl;
-            cout << "Kembali ke menu utama dalam 5 detik" << endl; sleep(5); dash_admin();
+        cout << "\033[1;31m" << "Gagal membuka file untuk membaca data." << endl << endl  << "\033[0m\n";
+        cout << "\033[1;31m" << "Kembali ke menu utama dalam 5 detik" << endl  << "\033[0m\n"; sleep(5); dash_admin();
     }
 }
 
@@ -276,8 +260,8 @@ void add_jadwal_team(){
         data_jadwal << its.nama_club << " | " << its.lokasi << " | " << its.jadwal << " | " << its.waktu << " | " << its.hasil << endl;
 
         data_jadwal.close();
-        cout << "\t\t\tData sedang dimasukan"<< endl; sleep(5);
-        cout << "\t\t    Jadwal berhasil ditambahkan." << endl << endl;
+        cout << "\033[1;33m" << "\t\t\tData sedang dimasukan"<< endl << "\033[0m\n"; sleep(5);
+        cout << "\033[1;32m" << "\t\t    Jadwal berhasil ditambahkan." << endl << endl << "\033[0m\n";
         cout << "\t  Apakah anda ingin memasukan data lagi (y/n): "; cin >> pilih;
 
         if(pilih == "Y" || pilih == "y"){
@@ -286,11 +270,11 @@ void add_jadwal_team(){
             dash_admin();
         } else{
             cout << "\033[2J\033[1;1H";
-            cout << endl << "Maaf option ada tidak terdekteksi!!" << endl; sleep(3);
+            cout << "\033[1;31m" << endl << "Maaf option ada tidak terdekteksi!!" << endl << "\033[0m\n"; sleep(3);
             dash_admin();
         }
     } else {
-        cout << "Gagal membuka file untuk menulis data." << endl; sleep(4); dash_admin();
+        cout << "\033[1;31m" << "Gagal membuka file untuk menulis data." << endl << "\033[0m\n"; sleep(4); dash_admin();
     }
 }
 
@@ -299,8 +283,7 @@ void view_jadwal_team(){
     ifstream data_jadwal("data_jadwal.txt");
 
     if(data_jadwal.is_open()){
-        string line;
-        int nomor = 1;
+        string line; int nomor = 1;
 
         cout << "-------------------------- DAFTAR JADWAL PERTANDINGAN --------------------------" << endl;
         cout << " No | Nama Team |   Lokasi Pertandingan  |   Jadwal   |   Waktu   |   Hasil   |" << endl;
@@ -318,11 +301,67 @@ void view_jadwal_team(){
         } else if (pilih == "N" || pilih == "n"){
             cout << "\033[2J\033[1;1H"; cin.ignore();view_jadwal_team();
         } else {
-            cout << "\t\t   Pilihan anda tidak ada!!"; sleep(4); cout << "\033[2J\033[1;1H"; cin.ignore();view_jadwal_team();
+            cout << "\033[1;31m" << "\t\t   Pilihan anda tidak ada!!" << "\033[0m\n"; sleep(4); cout << "\033[2J\033[1;1H"; cin.ignore();view_jadwal_team();
         }
     }else {
-        cout << "Gagal membuka file untuk membaca data." << endl << endl;
-        cout << "Kembali ke menu utama dalam 5 detik" << endl; sleep(5); dash_admin();
+        cout << "\033[1;31m" << "Gagal membuka file untuk membaca data." << endl << endl << "\033[0m\n";
+        cout << "\033[1;31m" << "Kembali ke menu utama dalam 5 detik" << endl << "\033[0m\n"; sleep(5); dash_admin();
+    }
+}
+
+void delate_jadwal_team(){
+    string menu;
+    ifstream data_jadwal("data_jadwal.txt");
+
+    if (data_jadwal.is_open()){
+        string line; int nomor = 1;
+
+        cout << "-------------------------- DAFTAR JADWAL PERTANDINGAN --------------------------" << endl;
+        cout << " No | Nama Team |   Lokasi Pertandingan  |   Jadwal   |   Waktu   |   Hasil   |" << endl;
+        cout << "--------------------------------------------------------------------------------" << endl;
+
+        while (getline(data_jadwal, line)){
+            cout << nomor << ". " << line << endl;
+            nomor ++;
+        }
+        data_jadwal.close();
+
+        int nomor_jadwal;
+        cout << endl << "Pilih nomor jadwal yang ingin Anda hapus: "; cin >> nomor_jadwal;
+
+        ifstream in("data_jadwal.txt");
+        ofstream temp_file2("temp_jadwal.txt");
+
+        if(temp_file2.is_open() && in.is_open()){
+            int baris_jadwal = 1;
+
+            while(getline(in, line)){
+                if(baris_jadwal != nomor_jadwal){
+                    temp_file2 << line << endl;
+                } baris_jadwal++;
+            }
+            temp_file2.close();
+            in.close();
+
+            remove("data_jadwal.txt"); rename("temp_jadwal.txt", "data_jadwal.txt");
+
+            sleep(3);
+            cout << "\033[1;32m" << endl << "\t\t    Jadwal tim berhasil dihapus." << endl << "\033[0m\n";
+            cout << "\t\t   Kembali ke menu utama (y/n) ? "; cin >> menu;
+            if (menu == "Y" || menu == "y"){
+                cout << "\033[2J\033[1;1H"; cin.ignore(); dash_admin();
+            } else if (menu == "N" || menu == "n"){
+                cout << "\033[2J\033[1;1H"; cin.ignore(); view_jadwal_team();
+            } else{
+                cout  << "\033[1;31m" << "\t\t   Pilihan anda tidak ada!!" << "\033[0m\n"; sleep(4); cout << "\033[2J\033[1;1H"; cin.ignore();dash_admin();
+            }
+        } else{
+            cout << "\033[1;31m" << "Gagal membuka file untuk membaca data." << endl << endl << "\033[0m\n";
+            cout << "\033[1;31m" << "Kembali ke menu utama dalam 5 detik" << endl << "\033[0m\n"; sleep(5); dash_admin();
+        }
+    } else{
+        cout << "\033[1;31m" << "Gagal membuka file untuk membaca data." << endl << endl << "\033[0m\n";
+        cout << "\033[1;31m" << "Kembali ke menu utama dalam 5 detik" << endl << "\033[0m\n"; sleep(5); dash_admin();
     }
 }
 
@@ -359,12 +398,14 @@ void dash_admin(){
     } else if (menu == "F" || menu == "f"){
         cout << "\033[2J\033[1;1H"; cin.ignore(); view_jadwal_team();
     } else if (menu == "G" || menu == "g"){
-        // kondisi 7
+        cout << "\033[2J\033[1;1H"; cin.ignore(); delate_jadwal_team();
     } else if (menu == "Z" || menu == "z"){
-        // kondisi 9
+        cout << "\033[2J\033[1;1H"; 
+        cout << "\033[1;33m" << "\t\t\t Anda akan keluar dari program!!" << endl << "\t\t\t\t   Loading..."<< endl << endl << "\033[0m\n"; sleep(4);
+        cout << "\033[1;32m" << "\t\t\t  Aplikasi D'LigaVolly Selesai  " << "\033[0m\n";
     } else {
         cout << "\033[2J\033[1;1H";
-        cout << endl << "Maaf option ada tidak terdekteksi!!" << endl; sleep(3);
+        cout << "\033[1;33m" << endl << "Maaf option ada tidak terdekteksi!!" << endl << "\033[0m\n"; sleep(3);
         dash_admin();
     }
 }
@@ -379,10 +420,14 @@ void log_admin(){
     cout << "\t\t\tProses Verifikasi...." << endl; sleep(3);
 
     if(strcmp(its.uname, "vollydaskom")== 0 && strcmp(its.pass, "2424")==0){
-        cout << "\t\t\t  Login Success!!" << endl; sleep(3); dash_admin();
+        cout << "\033[1;32m" << "\t\t\t  Login Success!!" << endl<<"\033[0m\n"; sleep(3); dash_admin();
     } else {
-        cout << "\t\t\t  Login failed!!" << endl; sleep(3); log_admin();
+        cout << "\033[1;31m" << "\t\t\t  Login failed!!" << endl << "\033[0m\n"; sleep(3); log_admin();
     }
+}
+
+void dash1_public(){
+    
 }
 
 void baper(){
@@ -404,11 +449,9 @@ int main (){
     cout << "\t\t\t    /> "; cin >> menu;
 
     switch(menu){
-        case 1: cout << "\033[2J\033[1;1H";
-                log_admin(); break;
+        case 1: cout << "\033[2J\033[1;1H"; log_admin(); break;
         
-        case 2: cout << "\033[2J\033[1;1H";
-                break;
+        case 2: cout << "\033[2J\033[1;1H"; dash1_public(); break;
         
         default: cout << "\033[2J\033[1;1H";
              cout << endl << "Maaf option ada tidak terdekteksi!!" << endl; sleep(3);
