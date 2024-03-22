@@ -16,8 +16,6 @@ Fitur program (file.txt)
 
 */
 
-// testt
-
 #include <iostream>
 #include <unistd.h>
 #include <string>
@@ -130,7 +128,134 @@ void view_team() {
 }
 
 void upd_team(){
+    string menu;
+    fstream data_team("data_team.txt");
+
+    if (data_team.is_open()) {
+        string line;
+        int nomor = 1;
+
+        cout << "-------------------------- DAFTAR TIM --------------------------" << endl;
+        cout << " No | Nama Team | Nama Pelatih | Jumlah Pemain | Informasi Team |" << endl;
+        cout << "----------------------------------------------------------------" << endl;
+
+        while (getline(data_team, line)) {
+            cout << nomor << ". " << line << endl;
+            nomor++;
+        }
+
+        data_team.close();
+
+        int nomor_tim;
+        cout << endl << "Pilih nomor tim yang ingin Anda edit: ";
+        cin >> nomor_tim;
+
+        data_team.open("data_team.txt", ios::out | ios::in);
+
+        if (data_team.is_open()) {
+            // Menghitung nomor baris tim yang dipilih
+            int baris_tim = 1;
+            while (baris_tim < nomor_tim) {
+                getline(data_team, line);
+                baris_tim++;
+            }
+            cout << "Loading...." << endl << endl;sleep(3); 
+            cin.ignore();
+            cout << endl << "Masukkan data baru untuk tim ini:" << endl << endl;
+            cout << "Tim Volly    : "; getline(cin, its.nama);
+            cout << "Rangking VPGA: "; getline(cin, its.rangking);
+            cout << "Nama Pelatih : "; getline(cin, its.pelatih);
+            cout << "Jumlah Pemain: "; getline(cin, its.pemain);
+            cout << "Informasi Tim: "; getline(cin, its.informasi);
+
+            data_team.seekp(0, ios::beg);
+            for (int i = 1; i < baris_tim; i++) {
+                getline(data_team, line);
+            }
+            data_team << its.nama << " | " << its.rangking << " | " << its.pelatih << " | " << its.pemain << " | " << its.informasi << endl;
+
+            data_team.close();
+
+            cout << endl << "\t\t\tData sedang dimasukan"<< endl; sleep(5);
+            cout << "\t\t    Data tim berhasil ditambahkan." << endl << endl; sleep(3);
+            cout << "\t\t    Kembali ke menu utama (y/n) ? "; cin >> menu;
+            if (menu == "Y" || menu == "y"){
+                cout << "\033[2J\033[1;1H"; cin.ignore(); dash_admin();
+            } else if (menu == "N" || menu == "n"){
+                cout << "\033[2J\033[1;1H"; cin.ignore(); upd_team();
+            } else{
+                cout << "\t\t   Pilihan anda tidak ada!!"; sleep(4); cout << "\033[2J\033[1;1H"; cin.ignore();upd_team();
+            }
+        } else {
+            cout << "Gagal membuka file untuk membaca data." << endl << endl;
+            cout << "Kembali ke menu utama dalam 5 detik" << endl; sleep(5); dash_admin();
+        }
+    } else {
+        cout << "Gagal membuka file untuk membaca data." << endl << endl;
+        cout << "Kembali ke menu utama dalam 5 detik" << endl; sleep(5); dash_admin();
+    }
+}
+
+void delate_team(){
+    string menu;
+    ifstream data_team("data_team.txt");
     
+    if (data_team.is_open()) {
+        string line;
+        int nomor = 1;
+
+        cout << "-------------------------- DAFTAR TIM --------------------------" << endl;
+        cout << " No | Nama Team | Nama Pelatih | Jumlah Pemain | Informasi Team |" << endl;
+        cout << "----------------------------------------------------------------" << endl;
+
+        while (getline(data_team, line)) {
+            cout << nomor << ". " << line << endl;
+            nomor++;
+        }
+
+        data_team.close();
+
+        int nomor_tim;
+        cout << endl << "Pilih nomor tim yang ingin Anda hapus: ";
+        cin >> nomor_tim;
+
+        ifstream in("data_team.txt");
+        ofstream temp_file("temp_team.txt");
+
+        if (temp_file.is_open() && in.is_open()) {
+            int baris_tim = 1;
+
+            while (getline(in, line)) {
+                if (baris_tim != nomor_tim) {
+                    temp_file << line << endl;
+                }
+                baris_tim++;
+            }
+
+            temp_file.close();
+            in.close();
+
+            remove("data_team.txt");
+            rename("temp_team.txt", "data_team.txt");
+            
+            sleep(3);
+            cout << endl << "\t\t    Data tim berhasil dihapus." << endl;
+            cout << "\t\t   Kembali ke menu utama (y/n) ? "; cin >> menu;
+            if (menu == "Y" || menu == "y"){
+                cout << "\033[2J\033[1;1H"; cin.ignore(); dash_admin();
+            } else if (menu == "N" || menu == "n"){
+                cout << "\033[2J\033[1;1H"; cin.ignore(); view_team();
+            } else{
+                cout << "\t\t   Pilihan anda tidak ada!!"; sleep(4); cout << "\033[2J\033[1;1H"; cin.ignore();dash_admin();
+            }
+        } else {
+            cout << "Gagal membuka file untuk membaca data." << endl << endl;
+            cout << "Kembali ke menu utama dalam 5 detik" << endl; sleep(5); dash_admin();
+        }
+    } else {
+        cout << "Gagal membuka file untuk membaca data." << endl << endl;
+            cout << "Kembali ke menu utama dalam 5 detik" << endl; sleep(5); dash_admin();
+    }
 }
 
 void add_jadwal_team(){
@@ -214,7 +339,6 @@ void dash_admin(){
     cout << "----------           [E]. Input Jadwal               ----------" << endl;
     cout << "----------           [F]. Review Jadwal              ----------" << endl;
     cout << "----------           [G]. Delate Jadwal              ----------" << endl;
-    cout << "----------           [H]. Update Jadwal              ----------" << endl;
     cout << "---------------------------------------------------------------" << endl;
     cout << "----------           [Z]. Logout                     ----------" << endl;
     cout << "---------------------------------------------------------------" << endl;
@@ -227,17 +351,15 @@ void dash_admin(){
     } else if (menu == "B" || menu == "b"){
         cout << "\033[2J\033[1;1H"; cin.ignore();view_team();
     } else if (menu == "C" || menu == "c"){
-        // kondisi 3
+        cout << "\033[2J\033[1;1H"; cin.ignore();delate_team();
     } else if (menu == "D" || menu == "d"){
-        // kondisi 4
+        cout << "\033[2J\033[1;1H"; cin.ignore();upd_team();
     } else if (menu == "E" || menu == "e"){
         cout << "\033[2J\033[1;1H"; cin.ignore();add_jadwal_team();
     } else if (menu == "F" || menu == "f"){
         cout << "\033[2J\033[1;1H"; cin.ignore(); view_jadwal_team();
     } else if (menu == "G" || menu == "g"){
         // kondisi 7
-    } else if (menu == "H" || menu == "h"){
-        // kondisi 8
     } else if (menu == "Z" || menu == "z"){
         // kondisi 9
     } else {
