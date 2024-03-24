@@ -427,51 +427,102 @@ void log_admin(){
 
 void regis_public(){
     string pilih;
-    ofstream data_user("data_user.txt", ios::app);
+    cout << "\033[2J\033[1;1H";
+    cout << "\033[1;36m" << "------------------------------   D'LIGAVOLLY   --------------------------------" << endl << "\033[0m";
+    cout << "\033[1;36m" << "-------------------------- VERIFIKASI AKUN CUSTOMER ---------------------------" << endl << "\033[0m";
+    cout << "\033[1;36m" << "-------------------------------------------------------------------------------" << endl << "\033[0m";
+    cout << "\033[1;36m" << "\t\t\t Email    : " << "\033[0m"; getline(cin, its.email);
+    cout << "\033[1;36m" << "\t\t\t Username : " << "\033[0m"; getline(cin, its.user);
+    cout << "\033[1;36m" << "\t\t\t Password : " << "\033[0m"; getline(cin, its.pass_user);
+    cout << "\033[1;36m" << "-------------------------------------------------------------------------------" << endl << "\033[0m\n";
 
-    if(data_user.is_open()){
-        cout << "\033[1;36m" << "------------------------------   D'LIGAVOLLY   --------------------------------" << endl << "\033[0m";
-        cout << "\033[1;36m" << "-------------------------- REGISTRASI AKUN CUSTOMER ---------------------------" << endl << "\033[0m";
-        cout << "\033[1;36m" << "-------------------------------------------------------------------------------" << endl << "\033[0m";
-        cout << "\033[1;36m" << "\t\t\t Email    : " << "\033[0m"; getline(cin, its.email);
-        cout << "\033[1;36m" << "\t\t\t Username : " << "\033[0m"; getline(cin, its.user);
-        cout << "\033[1;36m" << "\t\t\t Password : " << "\033[0m"; getline(cin, its.pass_user);
-        cout << "\033[1;36m" << "-------------------------------------------------------------------------------" << endl << "\033[0m\n";
+    if (its.email == "user@gmail.com" && its.user == "uservolly" && its.pass_user == "000") {
+        cout << "\033[1;33m" << "\t\t\t  Verifikasi sedang dilakukan"<< endl << "\033[0m\n"; sleep(5);
+        cout << "\033[1;32m" << "\t\t        Verifikasi berhasil dilakukan." << endl << "\033[0m\n";
+        cout << "\033[1;36m" << "\t\t    Apakah anda ingin lanjut login (y/n): "  << "\033[0m"; cin >> pilih;
 
-        data_user << its.email << " | " << its.user << " | " << its.pass_user << " | " << endl;
-
-        data_user.close();
-        cout << "\033[1;33m" << "\t\t\t  Registrasi sedang dilakukan"<< endl << "\033[0m\n"; sleep(5);
-        cout << "\033[1;32m" << "\t\t        Registrasi berhasil ditambahkan." << endl << "\033[0m\n";
-        cout << "\033[1;36m" << "\t\t    Apakah anda ingin langsung login (y/n): "  << "\033[0m"; cin >> pilih;
         if(pilih == "Y" || pilih == "y"){
             cout << "\033[2J\033[1;1H"; cin.ignore(); log_public();
         } else if (pilih == "N" || pilih == "n"){
             dash1_public();
         } else{
             cout << "\033[2J\033[1;1H";
-            cout  << "\033[1;31m"<< endl << "Maaf option ada tidak terdekteksi!!" << endl  << "\033[0m\n"; sleep(3);
-            dash1_public();
+            cout  << "\033[1;31m"<< endl << "Maaf option ada tidak terdekteksi!!" << endl  << "\033[0m\n"; sleep(3); regis_public();
         }
     } else {
-        cout  << "\033[1;31m"<< "Gagal membuka file untuk menulis data." << endl  << "\033[0m\n"; sleep(4); dash1_public();
+        cout << "\033[1;33m" << "\t\t\t  Verifikasi sedang dilakukan"<< endl << "\033[0m\n"; sleep(5);
+        cout << "\033[1;32m" << "\t\t     Verifikasi gagal dilakukan coba lagi." << endl << "\033[0m\n";
+        cout << "\033[1;36m" << "\t\t    Apakah anda ingin mencoba lagi (y/n): "  << "\033[0m"; cin >> pilih;
+
+        if(pilih == "Y" || pilih == "y"){
+            cout << "\033[2J\033[1;1H"; cin.ignore(); regis_public();
+        } else if (pilih == "N" || pilih == "n"){
+            cout << "\033[2J\033[1;1H"; 
+            cout << "\033[1;33m" << "\t\t\t Anda akan keluar dari program!!" << endl << "\t\t\t\t   Loading..."<< endl << endl << "\033[0m\n"; sleep(4);
+            cout << "\033[1;32m" << "\t\t\t  Aplikasi D'LigaVolly Selesai  " << "\033[0m\n";
+        } else {
+            cout << "\033[2J\033[1;1H";
+            cout  << "\033[1;31m"<< endl << "Maaf option ada tidak terdekteksi!!" << endl  << "\033[0m\n"; sleep(3); regis_public();
+        }
     }
 }
 
-void log_public(){
+void search_public(){
+    cout << "searhing berhasil" << endl;
+}
 
+void view_jadwal_public(){
+    cout << "lihat jadwal pertandingan berhasil" << endl;
+}
+
+void view_rank_public(){
+    cout << "lihat rank team" << endl;
+}
+
+void log_public(){
+    string menu;
+    cout << "\033[2J\033[1;1H"; cout << "\033[1;36m";
+    cout << "-------------------------- D'LIGAVOLLY ------------------------" << endl;
+    cout << "--------------------- MENU PUBLIC FOR USER --------------------" << endl;
+    cout << "---------------------------------------------------------------" << endl;
+    cout << "----------       [A]. Searching Data Team            ----------" << endl;
+    cout << "----------       [B]. Lihat Jadwal pertandingan      ----------" << endl;
+    cout << "----------       [C]. Lihat Rangking Klasmen         ----------" << endl;
+    cout << "---------------------------------------------------------------" << endl;
+    cout << "----------       [Z]. Logout                         ----------" << endl;
+    cout << "---------------------------------------------------------------" << endl;
+    cout << "---------                Input Option                ----------" << endl;
+    cout << "                            /> "; cin >> menu;
+    cout << "---------------------------------------------------------------" << endl;
+    cout << "\033[0m\n";
+    if (menu == "A" || menu == "a"){
+        cout << "\033[2J\033[1;1H"; cin.ignore(); search_public();
+    } else if (menu == "B" || menu == "b"){
+        cout << "\033[2J\033[1;1H"; cin.ignore(); view_jadwal_public();
+    } else if (menu == "C" || menu == "c"){
+        cout << "\033[2J\033[1;1H"; cin.ignore(); view_rank_public();
+    } else if (menu == "Z" || menu == "z"){
+        cout << "\033[2J\033[1;1H"; 
+        cout << "\033[1;33m" << "\t\t\t Anda akan keluar dari program!!" << endl << "\t\t\t\t   Loading..."<< endl << endl << "\033[0m\n"; sleep(4);
+        cout << "\033[1;32m" << "\t\t\t  Aplikasi D'LigaVolly Selesai  " << "\033[0m\n";
+    } else {
+        cout << "\033[2J\033[1;1H";
+        cout << "\033[1;33m" << endl << "Maaf option ada tidak terdekteksi!!" << endl << "\033[0m\n"; sleep(3);
+        log_public();
+    }
 }
 
 void dash1_public(){
     int menu;
     cout << "\033[2J\033[1;1H"; baper();
-    cout << "||\t\t     [1]. Registrasi Akun                    ||" << endl;
-    cout << "||\t\t     [2]. Login Akun                         ||" << endl;
+    cout << "||\t\t     [1]. Verifikasi Akun                    ||" << endl;
+    cout << "||\t\t     [2]. Keluar                             ||" << endl;
     cout << "---------------------------------------------------------------" << endl;
     cout << "\t\t\t    /> "; cin >> menu;
     switch(menu){
         case 1: cout << "\033[2J\033[1;1H"; cin.ignore(); regis_public();break;
-        case 2: cout << "\033[2J\033[1;1H"; cin.ignore(); break;
+        case 2: cout << "\033[2J\033[1;1H"; cout << "\033[1;33m" << "\t\t\t Anda akan keluar dari program!!" << endl << "\t\t\t\t   Loading..."<< endl << endl << "\033[0m\n"; sleep(4);
+                cout << "\033[1;32m" << "\t\t\t  Aplikasi D'LigaVolly Selesai  " << "\033[0m\n"; break;
         default: cout << "\033[2J\033[1;1H";
              cout << endl << "Maaf option ada tidak terdekteksi!!" << endl; sleep(3);
              dash1_public(); 
@@ -507,4 +558,3 @@ int main (){
     }
     return 0;
 }
-
