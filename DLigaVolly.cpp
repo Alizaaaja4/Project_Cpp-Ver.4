@@ -1,11 +1,3 @@
-/*
--> Public
-- searching tim (untuk informasi)
-- lihat jadwal pertandingan tim
-- melihat ranking klasmen tim
-
-*/
-
 #include <iostream>
 #include <unistd.h>
 #include <string>
@@ -92,9 +84,9 @@ void view_team() {
         string line;
         int nomor = 1; 
 
-        cout << "-------------------------- DAFTAR TIM --------------------------" << endl;
-        cout << " No | Nama Team | Nama Pelatih | Jumlah Pemain | Informasi Team |" << endl;
-        cout << "----------------------------------------------------------------" << endl;
+        cout << "----------------------------- DAFTAR TIM ----------------------------" << endl;
+        cout << " No | Nama Team | Rangking | Nama Pelatih | Jumlah | Informasi Team |" << endl;
+        cout << "---------------------------------------------------------------------" << endl;
         while (getline(data_team, line)) {
             cout <<  nomor << ". " << line << endl; 
             nomor++; 
@@ -468,15 +460,120 @@ void regis_public(){
 }
 
 void search_public(){
-    cout << "searhing berhasil" << endl;
+    string data_team = "data_team.txt"; string keyword, pilih, pilih2;
+
+    cout << "\033[1;36m";
+    cout << "-------------------------- D'LIGAVOLLY ------------------------" << endl;
+    cout << "--------------------- MENU PUBLIC FOR USER --------------------" << endl;
+    cout << "---------------------------------------------------------------" << endl;
+    cout << "\t\t    Masukan nama team: "; getline(cin, keyword);
+    cout << "\033[0m\n";
+
+    ifstream file(data_team);
+    if (!file.is_open()){
+        cout << "\t\t     Database tidak dapat dibuka!!" << data_team << endl;
+        cout << "\t\t   Anda akan kembali ke menu utama!" << endl; sleep(4); log_public();
+    }
+    string line; int nomor = 0; bool found = false;
+    while (getline(file, line)){
+        nomor++;
+        if(line.find(keyword) != string :: npos){
+            found = true;
+            sleep(4);
+            cout << "\033[1;32m" << "\t\t     Tim " <<  keyword << " ditemukan!!" << endl << "\033[0m\n";
+            cout << "\033[1;32m" << "\t   Tim tersebut masuk kualifikasi D'Liga Volly" << endl << endl << "\033[0m\n";
+            cout << "\033[1;36m" << "\t\t  Cek jadwal pertandingan (y/n): " << "\033[0m"; cin >> pilih;
+            if (pilih == "Y" || pilih == "y"){
+                cout << "\033[2J\033[1;1H"; cin.ignore(); view_jadwal_public();
+            } else if (pilih == "N" || pilih == "n"){
+                cout << "\033[2J\033[1;1H"; cin.ignore(); log_public();
+            } else {
+                cout << "\033[2J\033[1;1H";
+                cout << "\033[1;31m"<< endl << "Maaf option ada tidak terdekteksi!!" << endl  << "\033[0m\n"; sleep(3); search_public();
+            }
+        }
+    }
+    if (!found){
+        sleep(4);
+        cout << "\033[1;31m" << "\t\t     Tim " << keyword << " tidak ditemukan!!" << endl << "\033[0m\n";
+        cout << "\033[1;31m" << "\t Tim tersebut tidak masuk kualifikasi D'Liga Volly" << endl << endl << "\033[0m\n";
+        cout << "\033[1;36m" << "\t\t Coba search sekali lagi (y/n): " << "\033[0m"; cin >> pilih2;
+        if (pilih2 == "Y" || pilih2 == "y"){
+            cout << "\033[2J\033[1;1H"; cin.ignore(); search_public();
+        } else if (pilih2 == "N" || pilih2 == "n"){
+            cout << "\033[2J\033[1;1H"; cin.ignore(); log_public();
+        } else{
+            cout << "\033[2J\033[1;1H";
+            cout  << "\033[1;31m"<< endl << "Maaf option ada tidak terdekteksi!!" << endl  << "\033[0m\n"; sleep(3); search_public();
+        }
+    }
+    file.close();
 }
 
 void view_jadwal_public(){
-    cout << "lihat jadwal pertandingan berhasil" << endl;
+    string pilih;
+    ifstream data_jadwal("data_jadwal.txt");
+
+    if(data_jadwal.is_open()){
+        string line; int nomor = 1;
+        cout << "\033[1;36m";
+        cout << "-------------------------- DAFTAR JADWAL PERTANDINGAN --------------------------" << endl;
+        cout << " No | Nama Team |   Lokasi Pertandingan  |   Jadwal   |   Waktu   |   Hasil   |" << endl;
+        cout << "--------------------------------------------------------------------------------" << endl;
+        while(getline(data_jadwal, line)){
+            cout << nomor << ". " << line << endl;
+            nomor++;
+        }
+        cout << "--------------------------------------------------------------------------------" << endl;
+        cout << "\033[0m\n";
+        data_jadwal.close();
+
+        cout << "\033[1;36m" << "\t\t Kembali ke menu utama (y/n) ? " << "\033[0m"; cin >> pilih;
+        if (pilih == "Y" || pilih == "y"){
+            cout << "\033[2J\033[1;1H"; cin.ignore(); log_public();
+        } else if (pilih == "N" || pilih == "n"){
+            cout << "\033[2J\033[1;1H"; cin.ignore();view_jadwal_public();
+        } else {
+            cout << "\033[1;31m" << "\t\t   Pilihan anda tidak ada!!" << "\033[0m\n"; sleep(4); cout << "\033[2J\033[1;1H"; cin.ignore();view_jadwal_public();
+        }
+    }else {
+        cout << "\033[1;31m" << "Gagal membuka file untuk membaca data." << endl << endl << "\033[0m\n";
+        cout << "\033[1;31m" << "Kembali ke menu utama dalam 5 detik" << endl << "\033[0m\n"; sleep(5); log_public();
+    }
 }
 
 void view_rank_public(){
-    cout << "lihat rank team" << endl;
+    string menu;
+    ifstream data_team("data_team.txt"); 
+
+    if (data_team.is_open()) {
+        string line;
+        int nomor = 1; 
+
+        cout << "\033[1;36m";
+        cout << "----------------------------- DAFTAR TIM ----------------------------" << endl;
+        cout << " No | Nama Team | Rangking | Nama Pelatih | Jumlah | Informasi Team |" << endl;
+        cout << "---------------------------------------------------------------------" << endl;
+        while (getline(data_team, line)) {
+            cout <<  nomor << ". " << line << endl; 
+            nomor++; 
+        }
+        cout << "-----------------------------------------------------------------" << endl << endl;
+        cout << "\033[0m\n";
+        data_team.close(); 
+
+        cout << "\033[1;36m" << "\t\t Kembali ke menu utama (y/n) ? " << "\033[0m"; cin >> menu;
+        if (menu == "Y" || menu == "y"){
+            cout << "\033[2J\033[1;1H"; cin.ignore(); log_public();
+        } else if (menu == "N" || menu == "n"){
+            cout << "\033[2J\033[1;1H"; cin.ignore();view_rank_public();
+        } else {
+            cout  << "\033[1;31m" << "\t\t   Pilihan anda tidak ada!!" << "\033[0m\n"; sleep(4); cout << "\033[2J\033[1;1H"; cin.ignore();view_rank_public();
+        }
+    } else {
+        cout << "\033[1;31m" << "Gagal membuka file untuk membaca data." << endl << endl << "\033[0m\n";
+        cout  << "\033[1;33m" << "Kembali ke menu utama dalam 5 detik" << endl << "\033[0m\n"; sleep(5); log_public();
+    }
 }
 
 void log_public(){
