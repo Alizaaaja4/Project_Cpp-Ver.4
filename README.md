@@ -14,6 +14,11 @@ To access the features of D'LigaVolly, please use the following login credential
 - Username: `vollydaskom`
 - Password: `2424`
 
+### For Public Access:
+- Email: `user@gmail.com`
+- Username: `uservolly`
+- Password: `000`
+
 ## Get Started ▶️
 ### Clone the Repository
     git clone https://github.com/Alizaaaja4/Project_Cpp-Ver.4/DLigaVolly.git
